@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@antv/g-canvas": "^2.0.44",
+    "@antv/g-svg": "^2.0.38",
+    "@antv/g-webgl": "^2.0.48",
+    "@antv/g2": "file:./g2-source"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "main": "index.ts"
+}
