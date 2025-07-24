@@ -7,10 +7,10 @@ export default defineConfig({
     open: true
   },
   resolve: {
-    alias: {
-      '@antv/g2': resolve(__dirname, './g2-source/src'),
-      '@antv/g2/src/shape/gauge/round': resolve(__dirname, 'patches/gauge-round.ts')
-    }
+    // alias: {
+    //   '@antv/g2': resolve(__dirname, './g2-source/src'),
+    //   '@antv/g2/src/shape/gauge/round': resolve(__dirname, 'patches/gauge-round.ts')
+    // }
   },
   optimizeDeps: {
     include: ['@antv/g2/src']
