@@ -20,6 +20,6 @@
       "@antv/g2/*": ["node_modules/@antv/g2/src/*"]
     }
   },
-  "include": ["src", "patches"],
+  "include": ["src", "experiments", "patches"],
   "references": [{ "path": "./tsconfig.node.json" }]
-} 
+}

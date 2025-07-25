@@ -1,0 +1,3 @@
+[submodule "g2-source"]
+	path = g2-source
+	url = https://github.com/antvis/G2.git

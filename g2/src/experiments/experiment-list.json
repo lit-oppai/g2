@@ -1,0 +1,34 @@
+[
+  {
+    "name": "2",
+    "file": "./src/experiments/2.ts"
+  },
+  {
+    "name": "index",
+    "file": "./src/experiments/index.ts"
+  },
+  {
+    "name": "scale-line",
+    "file": "./src/experiments/scale-line.ts"
+  },
+  {
+    "name": "template",
+    "file": "./src/experiments/template.ts"
+  },
+  {
+    "name": "test-area&line",
+    "file": "./src/experiments/test-area&line.ts"
+  },
+  {
+    "name": "test-gauge",
+    "file": "./src/experiments/test-gauge.ts"
+  },
+  {
+    "name": "test-round",
+    "file": "./src/experiments/test-round.ts"
+  },
+  {
+    "name": "verify-fix",
+    "file": "./src/experiments/verify-fix.ts"
+  }
+]

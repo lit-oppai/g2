@@ -1,22 +1,18 @@
 import { Chart } from "@antv/g2";
 import { Renderer as SVGRenderer } from "@antv/g-svg";
 
-// 创建两个容器
-const container1 = document.createElement('div');
-container1.id = 'container1';
+// 通过 id 获取容器，假设 id 一定存在
+const container1 = document.getElementById('container1')!;
 container1.style.width = '600px';
 container1.style.height = '600px';
-document.body.appendChild(container1);
 
-const container2 = document.createElement('div');
-container2.id = 'container2';
+const container2 = document.getElementById('container2')!;
 container2.style.width = '600px';
 container2.style.height = '600px';
-document.body.appendChild(container2);
 
 // 测试用例1：使用默认arc
 const chart1 = new Chart({
-  container: "container1",
+  container: container1,
   renderer: new SVGRenderer(),
 });
 
@@ -35,7 +31,7 @@ chart1
 
 // 测试用例2：使用round
 const chart2 = new Chart({
-  container: "container2",
+  container: container2,
   renderer: new SVGRenderer(),
 });
 
@@ -54,4 +50,15 @@ chart2
   });
 
 chart1.render();
-chart2.render(); 
+chart2.render();
+
+// 销毁并清空容器内容
+function destroyCharts() {
+  chart1.destroy();
+  chart2.destroy();
+  container1.innerHTML = '';
+  container2.innerHTML = '';
+}
+
+// 挂到 window，方便全局调用
+(window as any).destroyCharts = destroyCharts;

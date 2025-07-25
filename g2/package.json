@@ -1,9 +1,10 @@
 {
   "dependencies": {
+    "@antv/g": "^6.1.27",
     "@antv/g-canvas": "^2.0.44",
     "@antv/g-svg": "^2.0.38",
     "@antv/g-webgl": "^2.0.48",
-    "@antv/g2": "file:./g2-source"
+    "@antv/g2": "file:../g2-source"
   },
   "devDependencies": {
     "@types/node": "latest",
@@ -11,6 +12,7 @@
     "vite": "latest"
   },
   "scripts": {
+    "auto": "node ./scripts/gen-experiment-list.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

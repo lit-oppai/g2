@@ -1,39 +1,93 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G2 仪表盘修复验证</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>G2 实验管理器</title>
     <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #f5f5f5;
-        }
-        #container1, #container2 {
-            margin: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 32px;
+      }
+      .exp-list {
+        margin-bottom: 24px;
+      }
+      .grid-root {
+        display: flex;
+        /* grid-template-columns: repeat(2, 400px); */
+        /* grid-template-rows: repeat(2, 300px); */
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      .exp-container {
+        border: 1px solid #eee;
+        background: #fafafa;
+        min-width: 400px;
+        min-height: 300px;
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      button {
+        padding: 6px 16px;
+        margin-right: 8px;
+      }
     </style>
-</head>
-<body>
-    <!-- <div id="container"></div> -->
-    <!-- <script type="module" src="/index.ts"></script> -->
-    <!-- <div id="2"></div> -->
-    <!-- <script type="module" src="/2.ts"></script> -->
-    
-    <!-- <script type="module" src="/test-gauge.ts"></script> -->
-    <script type="module" src="/test-area&line.ts"></script>
+  </head>
+  <body>
+    <h1>G2 实验管理器</h1>
+    <button onclick="destroyAllContainers()">销毁所有图表</button>
 
-    <!-- <script type="module" src="/verify-fix.ts"></script> -->
+    <ul id="experiment-list" class="exp-list"></ul>
+    <div class="grid-root" id="experiment-root"></div>
+    <script type="module">
+      // 公用插入方法
+      window.createExperimentContainer = function (id) {
+        const root = document.getElementById("experiment-root");
+        let container = document.getElementById(id);
+        if (!container) {
+          container = document.createElement("div");
+          container.id = id;
+          container.className = "exp-container";
+          root.appendChild(container);
+        }
+        container.innerHTML = "";
+        return container;
+      };
 
-    <!-- <script type="module" src="/test-round.ts"></script> -->
-</body>
+      // 公用销毁方法
+      window.destroyAllContainers = function () {
+        document.getElementById("experiment-root").innerHTML = "";
+        if (window.destroyCharts) window.destroyCharts();
+      };
+
+      // 动态实验列表
+      async function fetchExperimentList() {
+        const res = await fetch("./src/experiments/experiment-list.json");
+        return await res.json();
+      }
+      const experimentListEl = document.getElementById("experiment-list");
+      let experiments = {};
+      fetchExperimentList().then((list) => {
+        experiments = Object.fromEntries(
+          list.map((exp) => [
+            exp.name,
+            () => import(/* @vite-ignore */ exp.file),
+          ])
+        );
+        experimentListEl.innerHTML = "";
+        list.forEach((exp) => {
+          const li = document.createElement("li");
+          const btn = document.createElement("button");
+          btn.textContent = exp.name;
+          btn.onclick = () => {
+            window.destroyAllContainers();
+            experiments[exp.name]();
+          };
+          li.appendChild(btn);
+          experimentListEl.appendChild(li);
+        });
+      });
+    </script>
+  </body>
 </html>
